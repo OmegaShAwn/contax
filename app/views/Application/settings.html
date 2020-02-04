@@ -7,7 +7,7 @@
 </div>
 
 <form class="settings" action="@{Application.settings()}">
-    <h2>Your Birthday is on <input style="width:200px" type="date" name="dob"></h2>
-    <h2>BirthDay Notification should be sent before <input style="width:60px" type="number" name="hours" value="24"> hours.</h2>
+    <h2>Your Birthday is on <input style="width:200px" type="date" name="dob" value=${user.getDateOfBirth()}></h2>
+    <h2>BirthDay Notification should be sent before <input style="width:60px" type="number" name="hours" value=${user.getNotifyBefore()}> hours.</h2>
     <button class="dropbtn" style="width:100px;position:fixed; right: 30px">Save</button>
 </form>

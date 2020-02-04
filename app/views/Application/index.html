@@ -2,18 +2,16 @@
 #{set title:'Contax' /}
 <h2>Your Contax</h2>
 <nav>
+    #{list items:user.getFriends(), as:'friend'}
     <ul>
-        <li>username</li>
-        <li>dob</li>
+        <li>${friend.getUsername()}</li>
+        <li>${friend.getDateOfBirth()}</li>
     </ul>
+    #{/list}
     <ul>
-        <li>username</li>
-        <li>dob</li>
-    </ul>
-    <ul>
-        <form>
+        <form action="@{Application.index}">
             <li>
-                <input type="email">
+                <input type="email" name="friend">
                 <button type="submit">Add new Contact</button>
             </li>
         </form>

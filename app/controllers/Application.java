@@ -10,13 +10,37 @@ import models.*;
 @With(Secure.class)
 public class Application extends Controller {
 
-    public static void index() {
-        render();
+    public static void index(String email) {
+        String username = Security.connected();
+        List<User> users = User.find("byUsername", username).fetch();
+        User user = users.get(0);
+        if (email != null) {
+            List<User> friends = user.getFriends();
+            List<User> usersWithEmail = User.find("byUsername", email).fetch();
+            if (usersWithEmail.size() != 0) {
+                User friend = users.get(0);
+                friends.add(friend);
+                user.setFriends(friends);
+                user = user.save();
+            }
+        }
+        render(user);
     }
 
-    public static void settings(Date dob, int hours) {
-        // String username = Security.connected();
-        render();
+    public static void settings(Date dob, Integer hours) {
+        String username = Security.connected();
+        User user;
+        if (dob != null || hours != null) {
+            List<User> users = User.find("byUsername", username).fetch();
+            user = users.get(0);
+            if (dob != null) user.setDateOfBirth(dob);
+            if (hours != null) user.setNotifyBefore(hours);
+            user = user.save();
+        } else {
+            List<User> users = User.find("byUsername", Security.connected()).fetch();
+            user = users.get(0);
+        }
+        render(user);
     }
 
 }
