@@ -18,10 +18,12 @@ public class Application extends Controller {
             List<User> friends = user.getFriends();
             List<User> usersWithEmail = User.find("byUsername", email).fetch();
             if (usersWithEmail.size() != 0) {
-                User friend = users.get(0);
-                friends.add(friend);
-                user.setFriends(friends);
-                user = user.save();
+                User friend = usersWithEmail.get(0);
+                if (!friends.contains(friend)) {
+                    friends.add(friend);
+                    user.setFriends(friends);
+                    user = user.save();
+                }
             }
         }
         render(user);

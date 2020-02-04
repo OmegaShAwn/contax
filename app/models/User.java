@@ -16,6 +16,8 @@ public class User extends Model {
     @OneToMany
     public List<User> friends;
 
+    public User() {}
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
